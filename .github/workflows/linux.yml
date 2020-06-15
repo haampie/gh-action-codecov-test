@@ -12,15 +12,17 @@ jobs:
     - name: Configure
       shell: bash
       run: |
-          ls
           mkdir build
           cd build
           cmake .. -GNinja -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+          pwd
     - name: Build
       shell: bash
       run: |
           cmake --build build --target all
+          pwd
     - name: Test
       shell: bash
       run: |
+          pwd
           ctest
