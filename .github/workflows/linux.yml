@@ -19,6 +19,7 @@ jobs:
     - name: Build
       shell: bash
       run: |
+          ls -al
           cmake --build build --target all
           pwd
     - name: Test
