@@ -29,5 +29,5 @@ jobs:
       shell: bash
       run: |
           cd /build
-          grcov -s $GITHUB_WORKSPACE -o coverage.info --llvm --ignore-not-existing -t lcov /build
-          cat coverage.info
+          grcov -s $GITHUB_WORKSPACE -o coverage.info --llvm --ignore "/*" --ignore-not-existing -t lcov /build
+          bash <(curl -s https://codecov.io/bash) -f coverage.info
