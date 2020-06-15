@@ -25,5 +25,8 @@ jobs:
       run: |
           cd build
           ctest
-    - id: coverage
-      uses: actions-rs/grcov@v0.1
+    - name: coverage
+      shell: bash
+      run: |
+          cd build
+          grcov . -o coverage.info --llvm --ignore-not-existing -t lcov -s ../
