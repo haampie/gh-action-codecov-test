@@ -29,3 +29,4 @@ jobs:
       shell: bash
       run: |
           grcov -s . -o coverage.info --llvm --ignore-not-existing -t lcov ./build/
+          cat coverage.info
