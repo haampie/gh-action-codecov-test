@@ -29,6 +29,7 @@ jobs:
       shell: bash
       run: |
           cd /build
-          grcov -s $GITHUB_WORKSPACE -o coverage.info --llvm --ignore "/*" --ignore-not-existing -t lcov /build
+          zip -0 ccov.zip `find . \( -name "*.gcno" -o -name ".gcda" \) -print`;
+          grcov ccov.zip -s $GITHUB_WORKSPACE -o coverage.info --llvm --branch --ignore "/*" --ignore-not-existing -t lcov /build
           cat coverage.info
           bash <(curl -s https://codecov.io/bash) -f coverage.info
