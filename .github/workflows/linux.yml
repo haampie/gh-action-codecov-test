@@ -19,10 +19,8 @@ jobs:
     - name: Build
       shell: bash
       run: |
-          cd build
           cmake --build build --target all
     - name: Test
       shell: bash
       run: |
-          cd build
           ctest
