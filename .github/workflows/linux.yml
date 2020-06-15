@@ -5,10 +5,7 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 
-      image: stabbles/clang-test
-      volumes:
-        - :/build
+    container: stabbles/clang-test
 
     steps:
     - uses: actions/checkout@v2
