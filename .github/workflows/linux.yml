@@ -5,7 +5,10 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: stabbles/clang-test
+    container: 
+      image: stabbles/clang-test
+      volumes:
+        - :/build
 
     steps:
     - uses: actions/checkout@v2
@@ -25,11 +28,14 @@ jobs:
       run: |
           cd /build
           ctest
-    - name: coverage
+    - name: Coverage report
       shell: bash
       run: |
           cd /build
           zip -0 ccov.zip `find . \( -name "*.gcno" -o -name "*.gcda" \) -print`;
-          grcov ccov.zip -s $GITHUB_WORKSPACE -o coverage.info --llvm --branch --ignore "/*" --ignore-not-existing -t lcov /build
-          cat coverage.info
-          bash <(curl -s https://codecov.io/bash) -f coverage.info
+          grcov ccov.zip -s $GITHUB_WORKSPACE -o $GITHUB_WORKSPACE/coverage.info --llvm --branch --ignore "/*" --ignore-not-existing -t lcov /build
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./coverage.info
