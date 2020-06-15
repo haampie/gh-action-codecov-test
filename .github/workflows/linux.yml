@@ -1,0 +1,28 @@
+name: Linux CI (Debug)
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: stabbles/clang-test
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Configure
+      shell: bash
+      run: |
+          ls
+          mkdir build
+          cd build
+          cmake .. -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+    - name: Build
+      shell: bash
+      run: |
+          cd build
+          make VERBOSE=1
+    - name: Test
+      shell: bash
+      run: |
+          cd build
+          ctest
