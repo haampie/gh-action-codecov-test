@@ -12,21 +12,22 @@ jobs:
     - name: Configure
       shell: bash
       run: |
-          mkdir build
-          cd build
-          cmake .. -GNinja -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+          mkdir /build
+          cd /build
+          cmake $GITHUB_WORKSPACE -GNinja -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
     - name: Build
       shell: bash
       run: |
-          cd build
+          cd /build
           ninja
     - name: Test
       shell: bash
       run: |
-          cd build
+          cd /build
           ctest
     - name: coverage
       shell: bash
       run: |
-          grcov -s . -o coverage.info --llvm --ignore-not-existing -t lcov ./build/
+          cd /build
+          grcov -s $GITHUB_WORKSPACE -o coverage.info --llvm --ignore-not-existing -t lcov /build
           cat coverage.info
