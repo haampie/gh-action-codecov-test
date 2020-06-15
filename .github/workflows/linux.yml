@@ -28,5 +28,4 @@ jobs:
     - name: coverage
       shell: bash
       run: |
-          cd build
-          grcov . -o coverage.info --llvm --ignore-not-existing -t lcov -s ../
+          grcov -s . -o coverage.info --llvm --ignore-not-existing -t lcov ./build/
