@@ -15,12 +15,12 @@ jobs:
           ls
           mkdir build
           cd build
-          cmake .. -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
+          cmake .. -GNinja -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
     - name: Build
       shell: bash
       run: |
           cd build
-          make VERBOSE=1
+          cmake --build build --target all
     - name: Test
       shell: bash
       run: |
