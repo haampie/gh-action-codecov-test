@@ -15,15 +15,13 @@ jobs:
           mkdir build
           cd build
           cmake .. -GNinja -DBUILD_TESTING=ON -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
-          pwd
     - name: Build
       shell: bash
       run: |
-          ls -al
-          cmake --build build --target all
-          pwd
+          cd build
+          ninja
     - name: Test
       shell: bash
       run: |
-          pwd
+          cd build
           ctest
