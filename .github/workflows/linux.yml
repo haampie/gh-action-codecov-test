@@ -25,3 +25,5 @@ jobs:
       run: |
           cd build
           ctest
+    - id: coverage
+      uses: actions-rs/grcov@v0.1
